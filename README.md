@@ -2,7 +2,7 @@
 
 **(Or at least making it harder)**
 
----
+--- 
 
 **Essentially, hindering scraping means that you need to make it difficult for scripts and machines to get the wanted data from your website, while not making it difficult for real users and search engines**.
 
