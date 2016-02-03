@@ -221,42 +221,45 @@ This is sort of similar to the previous tip. If you serve different HTML based o
 
 An example: You have a search feature on your website, located at `example.com/search?query=somesearchquery`, which returns the following HTML:
 
-    <div class="search-result">
-      <h3 class="search-result-title">Stack Overflow has become the world's most popular programming Q & A website</h3>
-      <p class="search-result-excerpt">The website Stack Overflow has now become the most popular programming Q & A website, with 10 million questions and many users, which...</p>
-      <a class"search-result-link" href="/stories/stack-overflow-has-become-the-most-popular">Read more</a>
-    </div>
-    (And so on, lots more identically structured divs with search results)
-
+```HTML
+<div class="search-result">
+  <h3 class="search-result-title">Stack Overflow has become the world's most popular programming Q & A website</h3>
+  <p class="search-result-excerpt">The website Stack Overflow has now become the most popular programming Q & A website, with 10 million questions and many users, which...</p>
+  <a class"search-result-link" href="/stories/stack-overflow-has-become-the-most-popular">Read more</a>
+</div>
+(And so on, lots more identically structured divs with search results)
+```
 As you may have guessed this is easy to scrape: all a scraper needs to do is hit the search URL with a query, and extract the desired data from the returned HTML. In addition to periodically changing the HTML as described above, you could also **leave the old markup with the old ids and classes in, hide it with CSS, and fill it with fake data, thereby poisoning the scraper.** Here's how the search results page could be changed:
 
-    <div class="the-real-search-result">
-      <h3 class="the-real-search-result-title">Stack Overflow has become the world's most popular programming Q & A website</h3>
-      <p class="the-real-search-result-excerpt">The website Stack Overflow has now become the most popular programming Q & A website, with 10 million questions and many users, which...</p>
-      <a class"the-real-search-result-link" href="/stories/stack-overflow-has-become-the-most-popular">Read more</a>
-    </div>
+```HTML
+<div class="the-real-search-result">
+  <h3 class="the-real-search-result-title">Stack Overflow has become the world's most popular programming Q & A website</h3>
+  <p class="the-real-search-result-excerpt">The website Stack Overflow has now become the most popular programming Q & A website, with 10 million questions and many users, which...</p>
+  <a class"the-real-search-result-link" href="/stories/stack-overflow-has-become-the-most-popular">Read more</a>
+</div>
 
-    <div class="search-result" style="display:none">
-      <h3 class="search-result-title">Visit example.com now, for all the latest Stack Overflow related news !</h3>
-      <p class="search-result-excerpt">EXAMPLE.COM IS SO AWESOME, VISIT NOW! (Real users of your site will never see this, only the scrapers will.)</p>
-      <a class"search-result-link" href="http://example.com/">Visit Now !</a>
-    </div>
-    (More real search results follow)
-
+<div class="search-result" style="display:none">
+  <h3 class="search-result-title">Visit example.com now, for all the latest Stack Overflow related news !</h3>
+  <p class="search-result-excerpt">EXAMPLE.COM IS SO AWESOME, VISIT NOW! (Real users of your site will never see this, only the scrapers will.)</p>
+  <a class"search-result-link" href="http://example.com/">Visit Now !</a>
+</div>
+(More real search results follow)
+```
 This will mean that scrapers written to extract data from the HTML based on classes or IDs will continue to seemingly work, but they will get fake data or even ads, data which real users will never see, as they're hidden with CSS.
 
 ###Screw with the scraper: Insert fake, invisible honeypot data into your page
 
 Adding on to the previous example, you can add invisible honeypot items to your HTML to catch scrapers. An example which could be added to the previously described search results page:
 
-    <div class="search-result" style=”display:none">
-      <h3 class="search-result-title">This search result is here to prevent scraping</h3>
-      <p class="search-result-excerpt">If you're a human and see this, please ignore it. If you're a scraper, please click the link below :-)
-      Note that clicking the link below will block access to this site for 24 hours.</p>
-      <a class"search-result-link" href="/scrapertrap/scrapertrap.php">I'm a scraper !</a>
-    </div>
-    (The actual, real, search results follow.)
-
+```HTML
+<div class="search-result" style="display:none">
+  <h3 class="search-result-title">This search result is here to prevent scraping</h3>
+  <p class="search-result-excerpt">If you're a human and see this, please ignore it. If you're a scraper, please click the link below :-)
+  Note that clicking the link below will block access to this site for 24 hours.</p>
+  <a class"search-result-link" href="/scrapertrap/scrapertrap.php">I'm a scraper !</a>
+</div>
+(The actual, real, search results follow.)
+```
 A scraper written to get all the search results will pick this up, just like any of the other, real search results on the page ..and visit the link, looking for the desired content. A real human  will never even see it in the first place (due to it being hidden with CSS), and won't visit the link. A genuine and desirable spider such as Google's will not visit the link either because you disallowed `/scrapertrap/` in your robots.txt (don't forget this!)
 
 You can make your `scrapertrap.php` do something like block access for the IP address that visited it, force a captcha for all subsequent requests from that IP, create a loop of infinite redirects, or whatever.
