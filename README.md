@@ -1,4 +1,4 @@
-#A guide to preventing Webscraping
+# A guide to preventing Webscraping
 
 **(Or at least making it harder)**
 
@@ -50,11 +50,11 @@ There is a lot overlap between these different kinds of scraper, and many scrape
 
 This collection of tips are mostly my own ideas, various difficulties that I've encountered while writing scrapers, as well as bits of information and ideas from around the interwebs.
 
-##How to prevent scraping
+## How to prevent scraping
 
 Some general methods to detect and deter scrapers:
 
-###Monitor your logs & traffic patterns; limit access if you see unusual activity:
+### Monitor your logs & traffic patterns; limit access if you see unusual activity:
 
 Check your logs regularly, and in case of unusual activity indicative of automated access (scrapers), such as many similar actions from the same IP address, you can block or limit access.
 
@@ -94,7 +94,7 @@ Specifically, some ideas:
 
     The simple way to implement rate-limiting would be to temporarily block access for a certain amount of time, however using a Captcha may be better, see the section on Captchas further down.
 
-###Require registration & login
+### Require registration & login
 
 Require account creation in order to view your content, if this is feasible for your site. This is a good deterrent for scrapers, but is also a good deterrent for real users.
 
@@ -108,7 +108,7 @@ In order to avoid scripts creating many accounts, you should:
 
 Requiring account creation to view content will drive users and search engines away; if you require account creation in order to view an article, users will go elsewhere.
 
-###Block access from cloud hosting and scraping service IP addresses
+### Block access from cloud hosting and scraping service IP addresses
 
 Sometimes, scrapers will be run from web hosting services, such as Amazon Web Services or Google app Engine, or VPSes.  Limit access to your website (or show a captcha) for requests originating from the IP addresses used by such cloud hosting services. You can also block access from IP addresses used by scraping services.
 
@@ -116,7 +116,7 @@ Similarly, you can also limit access from IP addresses used by proxy or VPN prov
 
 Beware that by blocking access from proxy servers and VPNs, you will negatively affect real users.
 
-###Make your error message nondescript if you do block
+### Make your error message nondescript if you do block
 
 If you do block / limit access, you should ensure that you don't tell the scraper what caused the block, thereby giving them clues as to how to fix their scraper. So a bad idea would be to show error pages with text like:
 
@@ -130,7 +130,7 @@ Instead, show a friendly error message that doesn't tell the scraper what caused
 
 This is also a lot more user friendly for real users, should they ever see such an error page. You should also consider showing a captcha for subsequent requests instead of a hard block, in case a real user sees the error message, so that you don't block and thus cause legitimate users to contact you.
 
-###Use Captchas if you suspect that your website is being accessed by a scraper.
+### Use Captchas if you suspect that your website is being accessed by a scraper.
 
 Captchas ("Completely Automated Test to Tell Computers and Humans apart") are very effective against stopping scrapers. Unfortunately, they are also very effective at irritating users. 
 
@@ -144,7 +144,7 @@ Things to be aware of when using Captchas:
 
 * Captchas can be solved in bulk: There are captcha-solving services where actual, low-paid, humans solve captchas in bulk. Again, using reCaptcha is a good idea here, as they have protections (such as the relatively short time the user has in order to solve the captcha). This kind of service is unlikely to by used unless your data is really valuable.
 
-###Serve your text content as an image
+### Serve your text content as an image
 
 You can render text into an image server-side, and serve that to be displayed, which will hinder simple scrapers extracting text.
 
@@ -152,7 +152,7 @@ You can render text into an image server-side, and serve that to be displayed, w
 
 You can do something similar with CSS sprites, but that suffers from the same problems.
 
-###Don't expose your complete dataset:
+### Don't expose your complete dataset:
 
 If feasible, don't provide a way for a script / bot to get all of your dataset. As an example: You have a news site, with lots of individual articles. You could make those articles be only accessible by searching for them via the on site search, and, if you don't have a list of _all_ the articles on the site and their URLs anywhere, those articles will be only accessible by using the search feature. This means that a script wanting to get all the articles off your site will have to do searches for all possible phrases which may appear in your articles in order to find them all, which will be time-consuming, horribly inefficient, and will hopefully make the scraper give up.
 
@@ -164,15 +164,15 @@ This will be ineffective if:
 * Searching for something like "and" or "the" can reveal almost everything, so that is something to be aware of. (You can avoid this by only returning the top 10 or 20 results).
 * You need search engines to find your content.
 
-###Don't expose your APIs, endpoints, and similar things:
+### Don't expose your APIs, endpoints, and similar things:
 
 Make sure you don't expose any APIs, even unintentionally. For example, if you are using AJAX or network requests from within Adobe Flash or Java Applets (God forbid!) to load your data it is trivial to look at the network requests from the page and figure out where those requests are going to, and then reverse engineer and use those endpoints in a scraper program. Make sure you obfuscate your endpoints and make them hard for others to use, as described.
 
-##To deter HTML parsers and scrapers:
+## To deter HTML parsers and scrapers:
 
 Since HTML parsers work by extracting content from pages based on identifiable patterns in the HTML, we can intentionally change those patterns in oder to break these scrapers, or even screw with them. Most of these tips also apply to other scrapers like spiders and screenscrapers too.
 
-###Frequently change your HTML
+### Frequently change your HTML
 
 Scrapers which process HTML directly do so by extracting contents from specific, identifiable parts of your HTML page. For example: If all pages on your website have a `div` with an id of `article-content`, which contains the text of the article, then it is trivial to write a script to visit all the article pages on your site, and extract the content text of the `article-content ` div on each article page, and voilà, the scraper has all the articles from your site in a format that can be reused elsewhere.
 
@@ -195,11 +195,11 @@ Essentially, make sure that it is not easy for a script to find the actual, desi
 See also [How to prevent crawlers depending on XPath from getting page contents](http://stackoverflow.com/questions/30361740/) for details on how this can be implemented in PHP.
 
 
-###Change your HTML based on the user's location
+### Change your HTML based on the user's location
 
 This is sort of similar to the previous tip. If you serve different HTML based on your user's location / country (determined by IP address), this may break scrapers which are delivered to users. For example, if someone is writing a mobile app which scrapes data from your site, it will work fine initially, but break when it's actually distributed to users, as those users may be in a different country, and thus get different HTML, which the embedded scraper was not designed to consume.
 
-###Frequently change your HTML, actively screw with the scrapers by doing so !
+### Frequently change your HTML, actively screw with the scrapers by doing so !
 
 An example: You have a search feature on your website, located at `example.com/search?query=somesearchquery`, which returns the following HTML:
 
@@ -231,7 +231,7 @@ As you may have guessed this is easy to scrape: all a scraper needs to do is hit
 
 This will mean that scrapers written to extract data from the HTML based on classes or IDs will continue to seemingly work, but they will get fake data or even ads, data which real users will never see, as they're hidden with CSS.
 
-###Screw with the scraper: Insert fake, invisible honeypot data into your page
+### Screw with the scraper: Insert fake, invisible honeypot data into your page
 
 Adding on to the previous example, you can add invisible honeypot items to your HTML to catch scrapers. An example which could be added to the previously described search results page:
 
@@ -257,13 +257,13 @@ You can make your `scrapertrap.php` do something like block access for the IP ad
 
 * Beware that malicious people can post something like `[img]http://yoursite.com/scrapertrap/scrapertrap.php[img]` on a forum (or elsewhere), and thus DOS legitimate users when they visit that forum and their browser hits your honeypot URL. Thus, the previous tip of changing the URL is doubly important, and you could also check the Referer.
 
-###Serve fake and useless data if you detect a scraper
+### Serve fake and useless data if you detect a scraper
 
 If you detect what is obviously a scraper, you can serve up fake and useless data; this will corrupt the data the scraper gets from your website. You should also make it impossible to distinguish such fake data from real data, so that scrapers don't know that they're being screwed with.
 
 As an example: if you have a news website; if you detect a scraper, instead of blocking access, just serve up fake, [randomly generated](https://en.wikipedia.org/wiki/Markov_chain#Markov_text_generators) articles, and this will poison the data the scraper gets. If you make your faked data or articles indistinguishable from the real thing, you'll make it hard for scrapers to get what they want, namely the actual, real articles. 
 
-###Don't accept requests if the User Agent is empty / missing
+### Don't accept requests if the User Agent is empty / missing
 
 Often, lazily written scrapers will not send a User Agent header with their request, whereas all  browsers as well as search engine spiders will. 
 
@@ -271,7 +271,7 @@ If you get a request where the User Agent header is not present, you can show a 
 
 It's trivial to spoof, but as a measure against poorly written scrapers it is worth implementing.
 
-###Don't accept requests if the User Agent is a common scraper one; blacklist ones used by scrapers
+### Don't accept requests if the User Agent is a common scraper one; blacklist ones used by scrapers
 
 In some cases, scrapers will use a User Agent which no real browser or search engine spider uses, such as:
 
@@ -283,7 +283,7 @@ In some cases, scrapers will use a User Agent which no real browser or search en
 If you find that a specific User Agent string is used by scrapers on your site, and it is not used by real browsers or legitimate spiders, you can also add it to your blacklist.
 
 
-###Check the Referer header
+### Check the Referer header
 
 Adding on to the previous item, you can also check for the [Referer](https://en.wikipedia.org/wiki/HTTP_referer header) (yes, it's Referer, not Referrer), as lazily written scrapers may not send it, or always send the same thing (sometimes "google.com"). As an example, if the user comes to an article page from a on-site search results page, check that the Referer header is present and points to that search results page.
 
@@ -296,7 +296,7 @@ Beware that:
 Again, as an additional measure against poorly written scrapers it may be worth implementing.
 
 
-###If it doesn't request assets (CSS, images), it's not a real browser.
+### If it doesn't request assets (CSS, images), it's not a real browser.
 
 A real browser will (almost always) request and download assets such as images and CSS. HTML parsers and scrapers won't as they are only interested in the actual pages and their content.
 
@@ -304,7 +304,7 @@ You could log requests to your assets, and if you see lots of requests for only 
 
 Beware that search engine bots, ancient mobile devices, screen readers and misconfigured devices may not request assets either.
 
-###Use and require cookies; use them to track user and scraper actions.
+### Use and require cookies; use them to track user and scraper actions.
 
 You can require cookies to be enabled in order to view your website. This will deter inexperienced and newbie scraper writers, however it is easy to for a scraper to send cookies. If you do use and require them, you can track user and scraper actions with them, and thus implement rate-limiting, blocking, or showing captchas on a per-user instead of a per-IP basis.
 
@@ -314,7 +314,7 @@ Using cookies may be ineffective, as scrapers can send the cookies with their re
 
 Note that if you use JavaScript to set and retrieve the cookie, you'll block scrapers which don't run JavaScript, since they can't retrieve and send the cookie with their request.
 
-###Use JavaScript + Ajax to load your content
+### Use JavaScript + Ajax to load your content
 
 You could use JavaScript + AJAX to load your content after the page itself loads. This will make the content inaccessible to HTML parsers which do not run JavaScript. This is often an effective deterrent to newbie and inexperienced programmers writing scrapers.
 
@@ -326,7 +326,7 @@ Be aware of:
 
 * A programmer writing a scraper who knows what they're doing can discover the endpoints where the content is loaded from and use them.
 
-###Obfuscate your markup, network requests from scripts, and everything else.
+### Obfuscate your markup, network requests from scripts, and everything else.
 
 If you use Ajax and JavaScript to load your data, obfuscate the data which is transferred. As an example, you could encode your data on the server (with something as simple as base64 or more complex with multiple layers of obfuscation, bit-shifting, and maybe even encryption), and then decode and display it on the client, after fetching via Ajax. This will mean that someone inspecting network traffic will not immediately see how your page works and loads data, and it will be tougher for someone to directly request request data from your endpoints, as they will have to reverse-engineer your descrambling algorithm.
 
@@ -346,29 +346,29 @@ There are several disadvantages to doing something like this, though:
 
 * Performance and page-load times will suffer.
 
-##Non-Technical:
+## Non-Technical:
 
-###Your hosting provider may provide bot - and scraper protection:
+### Your hosting provider may provide bot - and scraper protection:
 
 For example, CloudFlare provides an anti-bot and anti-scraping protection, which you just need to enable, and so does AWS. There is also mod_evasive, an Apache module which let's you implement rate-limiting easily.
 
-###Tell people not to scrape, and some will respect it
+### Tell people not to scrape, and some will respect it
 
 You should tell people not to scrape your site, eg. in your conditions or Terms Of Service. Some people will actually respect that, and not scrape data from your website without permission.
 
-###Find a lawyer
+### Find a lawyer
 
 They know how to deal with copyright infringement, and can send a cease-and-desist letter. The DMCA is also helpful in this regard.
 
 This is the approach Stack Overflow and Stack Exchange uses.
 
-###Make your data available, provide an API:
+### Make your data available, provide an API:
 
 This may seem counterproductive, but you could make your data easily available and require attribution and a link back to your site. Maybe even charge $$$ for it..
 
 Again, Stack Exchange provides an API, but with attribution required.
 
-##Miscellaneous:
+## Miscellaneous:
 
 * Find a balance between usability for real users and scraper-proofness: Everything you do will impact user experience negatively in one way or another, so you will need to find compromises.
 
@@ -380,7 +380,7 @@ Again, Stack Exchange provides an API, but with attribution required.
 
 * Scrapers can scrape other scrapers: If there is one website which shows content scraped from your website, other scrapers can scrape from that scraper's website.
 
-##What's the most effective way ?
+## What's the most effective way ?
 
 In my experience of writing scrapers and helping people to write scrapers here on SO, the most effective methods are :
 
@@ -392,7 +392,7 @@ In my experience of writing scrapers and helping people to write scrapers here o
 
 * Rate limiting and scraper detection and subsequent blocking.
 
-##Further reading:
+## Further reading:
 
 * [Wikipedia's article on Web scraping](http://en.wikipedia.org/wiki/Web_scraping). Many details on the technologies involved and the different types of web scraper, general information on how webscraping is done, as well as a look at the legalities of scraping.
 
