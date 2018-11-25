@@ -22,7 +22,7 @@ Essentially, there are various types of scraper, and each works differently:
 
 * Spiders, such as [Google's bot](http://googlebot.com) or website copiers like [HTtrack](http://www.httrack.com), which visit your website, and recursively follow links to other pages in order to get data. These are sometimes used for targeted scraping to get specific data, often in combination with a HTML parser to extract the desired data from each page.
 
-* Shell scripts: Sometimes, common Unix tools are used for scraping: Wget or Curl to download pages, and Grep (Regex) to extract the desired data, usually using a shell script. These are the simplest kind of scraper, and also the most fragile kind ([Don't ever try parse HTML with regex !](http://example.com)). These are thus the easiest kind of scraper to break and screw with.
+* Shell scripts: Sometimes, common Unix tools are used for scraping: Wget or Curl to download pages, and Grep (Regex) to extract the desired data, usually using a shell script. These are the simplest kind of scraper, and also the most fragile kind ([Don't ever try parse HTML with regex !](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags/1732454#1732454)). These are thus the easiest kind of scraper to break and screw with.
 
 * HTML scrapers and parsers, such as ones based on [Jsoup](http://jsoup.org), [Scrapy](http://scrapy.org/), and many others. Similar to shell-script regex based ones, these work by extracting data from your pages based on patterns in your HTML, usually ignoring everything else. 
 
