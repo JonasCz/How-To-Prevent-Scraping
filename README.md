@@ -170,7 +170,7 @@ Make sure you don't expose any APIs, even unintentionally. For example, if you a
 
 ## To deter HTML parsers and scrapers:
 
-Since HTML parsers work by extracting content from pages based on identifiable patterns in the HTML, we can intentionally change those patterns in oder to break these scrapers, or even screw with them. Most of these tips also apply to other scrapers like spiders and screenscrapers too.
+Since HTML parsers work by extracting content from pages based on identifiable patterns in the HTML, we can intentionally change those patterns in order to break these scrapers, or even screw with them. Most of these tips also apply to other scrapers like spiders and screenscrapers too.
 
 ### Frequently change your HTML
 
