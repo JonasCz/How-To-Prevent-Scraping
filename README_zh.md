@@ -227,7 +227,7 @@
 
 对上个例子进行补充，你可以在你的 HTML 里面增加不可见的蜜罐数据来抓住爬虫。下面的例子来补充之前说的搜索结果：
 
-``````````
+````html
 <div class="search-result" style="display:none">
   <h3 class="search-result-title">This search result is here to prevent scraping</h3>
   <p class="search-result-excerpt">If you're a human and see this, please ignore it. If you're a scraper, please click the link below :-)
@@ -236,7 +236,7 @@
 </div>
 (The actual, real, search results follow.)
 
-``````````
+````
 
 一个来获取所有内容的爬虫将会被找到，就像获取其他结果一样，访问链接，查找想要的内容。一个真人将不会看到（因为使用 CSS 隐藏），而且更不会访问这个链接。而正规或者期望的蜘蛛比如谷歌的蜘蛛将不会访问这个链接，因为你可以将 `/scrapertrap/` 加入你的 robots.txt 中（不要忘记增加）
 
