@@ -2,6 +2,8 @@
 
 **(Or at least making it harder)**
 
+[中文版本](https://github.com/JonasCz/How-To-Prevent-Scraping/blob/master/README_zh.md)
+
 ---
 
 Note: this is an expanded version of my answer on Stack Overflow [here](http://stackoverflow.com/a/34828465/4428462), I've put it here on GitHub since it's too long for SO (30k characters is the max, this is over 40k chars).
