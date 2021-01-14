@@ -174,7 +174,7 @@
 * 你可以经常修改你 HTML 的 `id` 和 `class`，甚至让他能自动改变。所以，如果你的 `div.article-content` 变成 `div.a4c36dda13eaf0`，而且每周都会变化，那么爬虫一开始可能能正常工作，但是一周之后就不能使用了。同时也确保修改你 id/class的长度，这样也可以避免爬虫使用类似 `div.[any-14-characters]` 来找到想要的 `div`。
 * 如果无法从标记中找到所需的内容，则抓取工具将通过HTML的结构方式进行查找。所以，如果你的所有文章都有类似的结构，比如每个 `div`，并且里面通过 `h1` 放文章的标题，爬虫将基于这个结构获取文章内容。同样的，为了防止这个，你可以在你的 HTML 添加/删除 额外的标记，周期并且随机的做，eg. 添加额外的 `div` 或 `span`。对于服务端渲染的程序，这应该不会很难。
 
-注意事项：
+**注意事项：**
 
 * 它的实现、维护和调试都是很复杂困难的
 * 你要注意缓存。特别是你修改你 HTML 元素的 id 或 class 时，也要去修改相应的 CSS 和 JavaScript 文件，这意味着每次修改都要修改这些，而浏览器每次都要重新下载他们。这将导致页面打开慢也会导致服务端负载升高。不过这也不是一个大问题，如果你只是一个星期改变一次。
@@ -192,7 +192,7 @@
 
 举个例子：你有一个包含搜索功能的网站，`example.com/search?query=somesearchquery` 的搜索结果是下面的 HTML 结构： 
 
-`````
+````html
 <div class="search-result">
   <h3 class="search-result-title">Stack Overflow has become the world's most popular programming Q & A website</h3>
   <p class="search-result-excerpt">The website Stack Overflow has now become the most popular programming Q & A website, with 10 million questions and many users, which...</p>
@@ -200,11 +200,11 @@
 </div>
 (And so on, lots more identically structured divs with search results)
 
-`````
+````
 
 你可以猜到这个非常容易爬取：一个爬虫需要做的就只是访问搜索链接，然后从返回的 HTML 分析想要的数据。除了定期修改上面 HTML 的内容，你也可以**保留旧结构的 id 和 class，然后使用 CSS 进行隐藏，并使用假数据进行填充，从而给爬虫投毒**。比如像下面这样：
 
-``````````
+````html
 <div class="the-real-search-result">
   <h3 class="the-real-search-result-title">Stack Overflow has become the world's most popular programming Q & A website</h3>
   <p class="the-real-search-result-excerpt">The website Stack Overflow has now become the most popular programming Q & A website, with 10 million questions and many users, which...</p>
@@ -218,7 +218,7 @@
 </div>
 (More real search results follow)
 
-``````````
+````
 
 这意味着基于 id 或 class 获取特定数据的爬虫仍然能继续工作，但是他们将会获取假数据甚至广告，而这些数据真实用户是看不到的，因为他们被 CSS 隐藏了。
 
@@ -379,7 +379,7 @@
  
 * [维基百科关于 Web 爬虫的文章](http://en.wikipedia.org/wiki/Web_scraping)，其中提到了很多 Web 爬虫的相关技术和爬虫类型，看完如何进行 web 爬取的一些信息，也不要忘记看一看爬取的合法性。
 
-** 最后祝你在保护你网站的内容坎坷路上一路顺风... **
+**最后祝你在保护你网站的内容坎坷路上一路顺风...**
 
 
 
