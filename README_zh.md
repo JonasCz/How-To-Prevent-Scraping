@@ -86,7 +86,7 @@
  
  * [How to uniquely identify users with the same external IP address? ](http://security.stackexchange.com/questions/81302/how-to-uniquely-identify-users-with-the-same-external-ip-address)
 
- * [Why do people use IP address bans when IP addresses often change? ](http://security.stackexchange.com/questions/96377/why-do-people-use-ip-address-bans-when-ip-addresses-often-change) 关于这个方法的更多限制
+ * [Why do people use IP address bans when IP addresses often change? ](http://security.stackexchange.com/questions/96377/why-do-people-use-ip-address-bans-when-ip-addresses-often-change) 关于仅使用 IP 的其他限制
 
 * **使用验证码，而不是临时限制访问**
   
