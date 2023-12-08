@@ -10,6 +10,8 @@ Note: this is an expanded version of my answer on Stack Overflow [here](http://s
 
 Feel free to modify, remix, and share - this is licensed under [CC-BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/).
 
+Note that this was written in 2017: some of the information is a little bit obsolete.
+
 ---
 
 **Essentially, hindering scraping means that you need to make it difficult for scripts and machines to get the wanted data from your website, while not making it difficult for real users and search engines**.
